@@ -33,10 +33,14 @@ my @tr;
 for @melody -> $note
   {
    print "$note ";
-   $trans = %notes{$note} + $bias;
-   $trans -= 12 if ($trans > 11);
-   $trans += 12 if ($trans < 0);
-   @tr.push: @reverse[$trans];
+   if (defined %notes{$note}) {
+     $trans = %notes{$note} + $bias;
+     $trans -= 12 if ($trans > 11);
+     $trans += 12 if ($trans < 0);
+     @tr.push: @reverse[$trans];
+   } else {
+     @tr.push: "?";
+   }
   }
 
 say;#something;
