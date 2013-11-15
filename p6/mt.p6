@@ -3,11 +3,15 @@
 
 use v6;
 
+use lib "./";
+
+use myOptions;
+
 # hardcoded melody
 my @melody = <C D F>;
 
 # transposition
-my $bias = -3;
+#my $bias = -3;
 
 ############
 # cseg
@@ -27,10 +31,19 @@ my @reverse;
 
 for %notes.keys -> $note { @reverse[%notes{$note}] = $note };
 
+#multi sub MAIN(Bool:'version') {
+#  say "help";
+#}
+
+sub MAIN(Int:$bias = 0, :$output='letter', Bool:$verbose=False, *@input) {
+
+  if (@input.elems <1) {say "USAGE";}
+  say "bias is $bias, output format is $output, input is {@input}" if $verbose;
+
 my $trans;
 my @tr;
 
-for @melody -> $note
+for @input -> $note
   {
    print "$note ";
    if (defined %notes{$note}) {
@@ -45,3 +58,4 @@ for @melody -> $note
 
 say;#something;
 say @tr.join: " ";
+}
