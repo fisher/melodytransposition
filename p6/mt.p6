@@ -26,10 +26,6 @@ my @reverse;
 
 for %notes.keys -> $note { @reverse[%notes{$note}] = $note };
 
-#multi sub MAIN(Bool:'version') {
-#  say "help";
-#}
-
 sub MAIN (
      Int :$bias = 0,
          :$output = 'letter',
