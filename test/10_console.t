@@ -4,7 +4,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 7;
+use Test::More tests => 9;
 
 =pod
 
@@ -55,6 +55,24 @@ if ( open (PIPE, "mt-console |") ) {
   fail "can't open the pipe";
 
 }
+
+
+# -----------------------------------------
+open PIPE, "mt-console --unknown 2>&1 |";
+
+$f = 0;
+while (<PIPE>) { /usage/i and $f = 1; }
+is ( $f, 1, "mt-console --unknown -> usage" );
+close PIPE;
+
+
+# -----------------------------------------
+open PIPE, "mt-console --unknown A B C 2>&1 |";
+
+$f = 0;
+while (<PIPE>) { /usage/i and $f = 1; }
+is ( $f, 1, "mt-console --unknown A B C -> usage" );
+close PIPE;
 
 
 # -----------------------------------------
