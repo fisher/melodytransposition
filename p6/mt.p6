@@ -7,15 +7,6 @@ use lib "./";
 
 use myOptions;
 
-# hardcoded melody
-my @melody = <C D F>;
-
-# transposition
-#my $bias = -3;
-
-############
-# cseg
-
 # known notes database
 my %notes =
   'His'=> 0,   'C'  => 0,
@@ -39,7 +30,12 @@ for %notes.keys -> $note { @reverse[%notes{$note}] = $note };
 #  say "help";
 #}
 
-sub MAIN(Int:$bias = 0, :$output='letter', Bool:$verbose=False, *@input) {
+sub MAIN (
+     Int :$bias = 0,
+         :$output = 'letter',
+     Bool:$verbose = False,
+          *@input )
+{
 
   if (@input.elems <1) {say "USAGE";}
   say "bias is $bias, output format is $output, input is {@input}" if $verbose;
