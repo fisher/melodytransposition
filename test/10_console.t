@@ -4,7 +4,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 1;
+use Test::More tests => 7;
 
 =pod
 
@@ -35,4 +35,71 @@ run with simple parameter a couple of times and measure average time
 
 =cut
 
-is ('universe', "universe", "am I right");
+is ( -e "mt-console", 1, "looking for 'mt-console' in the current directory");
+is ( -x "mt-console", 1, "'mt-console' is executable");
+
+# will use it as a flag or counter
+my $f = 0;
+
+# first opening pipe is a subject to check
+if ( open (PIPE, "mt-console |") ) {
+
+  while (<PIPE>) {
+    /usage/i and $f=1;
+  }
+  is ( $f, 1, "found usage when without any parameters");
+  close PIPE;
+
+} else {
+
+  fail "can't open the pipe";
+
+}
+
+
+# -----------------------------------------
+open PIPE, "mt-console C D E F G A H |";
+
+$f = 0;
+while (<PIPE>) {
+  /C D E F G A H/ and $f++;
+}
+
+is ( $f, 2, "melody repeated with zero transposition" );
+close PIPE;
+
+
+# -----------------------------------------
+open PIPE, "mt-console --bias=2 C D E F G A H |";
+
+$f = 0;
+while (<PIPE>) {
+  /D E F# G A H C#/ and $f++;
+}
+
+is ( $f, 1, "melody transposed by two" );
+close PIPE;
+
+
+# -----------------------------------------
+open PIPE, "mt-console --bias=3 C D E F G A H |";
+
+$f = 0;
+while (<PIPE>) {
+  /D# F G G# A# C D/ and $f++;
+}
+
+is ( $f, 1, "melody transposed by three" );
+close PIPE;
+
+
+# -----------------------------------------
+open PIPE, "mt-console --bias=-1 C D E F G A H |";
+
+$f = 0;
+while (<PIPE>) {
+  /H C# D# E F# G# A#/ and $f++;
+}
+
+is ( $f, 1, "melody transposed by minus one" );
+close PIPE;
