@@ -55,18 +55,20 @@ Input format for the melody (or chord, or an accord)
 
 The set of notes is expected to be specified in english notation:
 
-0.  C  == Do
-1.  Db == Do diese (C-sharp) or Re bemoll (D-flat)
-2.  D  == Re
-3.  Eb == Re diese (D-sharp) or Mi bemoll (E-flat)
-4.  E  == Mi (or Fa bemoll)
-5.  F  == Fa (or Mi diese)
-6.  Gb == Fa diese or Sol bemoll
-7.  G  == Sol
-8.  Ab == Sol diese or La bemoll
-9.  A  == La
-10. Hb == La diese or Si bemoll, aka B in some countries
-11. H  == Si (Ti), or Do bemoll
+| N   |Input| Meaning
+|:---:|:---:|:---
+| 0   |  C  | Do
+| 1   |  Db | Do diese (C-sharp) or Re bemoll (D-flat)
+| 2   |  D  | Re
+| 3   |  Eb | Re diese (D-sharp) or Mi bemoll (E-flat)
+| 4   |  E  | Mi (or Fa bemoll)
+| 5   |  F  | Fa (or Mi diese)
+| 6   |  Gb | Fa diese or Sol bemoll
+| 7   |  G  | Sol
+| 8   |  Ab | Sol diese or La bemoll
+| 9   |  A  | La
+| 10  |  Hb | La diese or Si bemoll, aka B in some countries
+| 11  |  H  | Si (Ti), or Do bemoll
 
 As you can see there is no sharp signs in this system -- just because
 it is not so simple to transfer this sign from the usual command-line
@@ -79,7 +81,7 @@ Output formats
 ==============
 
 The console program should accept the --output parameter with these
-values: letters (1), freq (2), names (3). By default the first oneis
+values: **letters** (1), **freq** (2), **names** (3). By default the first oneis
 used (letters).
 
 | (1) |  (2)    |  (3)
