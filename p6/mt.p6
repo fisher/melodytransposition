@@ -7,19 +7,21 @@ use lib "./";
 
 use myNotes;
 
-my @reverse;
+my @letters;
 
 for %myNotes::notes.keys -> $note
-  { @reverse[%myNotes::notes{$note}] = $note };
+  { @letters[%myNotes::notes{$note}] = $note };
+
+my $output;
 
 sub MAIN (
      Int :$bias = 0,
-         :$output = 'letter',
+     :$output = 'letters',
      Bool:$verbose = False,
-          *@input )
+     *@input )
 {
 
-  if (@input.elems <1) {say "USAGE";}
+  if (@input.elems <1) { say "USAGE not implemented yet"; }
   say "bias is $bias, output format is $output, input is {@input}"
     if $verbose;
 
@@ -33,7 +35,7 @@ sub MAIN (
        $trans = %myNotes::notes{$note} + $bias;
        $trans -= 12 if ($trans > 11);
        $trans += 12 if ($trans < 0);
-       @tr.push: @reverse[$trans];
+       @tr.push: @letters[$trans];
      } else {
        @tr.push: "?";
      }
