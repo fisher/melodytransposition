@@ -23,6 +23,7 @@ sub MAIN (
      Int :$bias = 0,
      :$output = 'letters',
      Bool:$verbose = False,
+     Bool:$vertical = False,
      *@input )
 {
 
@@ -47,5 +48,11 @@ sub MAIN (
     };
 
   say;
-  say @tr.join: " ";
+
+  if ($vertical) {
+    for @tr -> $str { say $str; }
+  } else {
+    say @tr.join: " ";
+  }
+
 }
