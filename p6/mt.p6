@@ -7,10 +7,15 @@ use lib "./";
 
 use myNotes;
 
-my @letters;
 
-for %myNotes::notes.keys -> $note
-  { @letters[%myNotes::notes{$note}] = $note };
+my %known;
+for @myNotes::bank.kv -> $idx, %rec
+  {
+   for 0..%rec{'Input'}.elems-1 -> $j
+   {
+    %known{ %rec{'Input'}[$j] } = $idx;
+   }
+  };
 
 my $output;
 
@@ -31,11 +36,11 @@ sub MAIN (
   for @input -> $note
     {
      print "$note ";
-     if (defined %myNotes::notes{$note}) {
-       $trans = %myNotes::notes{$note} + $bias;
+     if (defined %known{$note}) {
+       $trans = %known{$note} + $bias;
        $trans -= 12 if ($trans > 11);
        $trans += 12 if ($trans < 0);
-       @tr.push: @letters[$trans];
+       @tr.push: @myNotes::bank[$trans]{$output};
      } else {
        @tr.push: "?";
      }
