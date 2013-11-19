@@ -70,9 +70,14 @@ The set of notes is expected to be specified in english notation:
 | 10  |  Hb | La diese or Si bemoll, aka B in some countries
 | 11  |  H  | Si (Ti), or Do bemoll
 
-As you can see there is no sharp signs in this system -- just because
+As you can see there is no sharp signs in this system---just because
 it is not so simple to transfer this sign from the usual command-line
-into program -- it is common sign for comment in shells.
+into program---it is common sign for comment in shells. It is possible
+though to enter it using so called quoting character---usually a
+backslash---like './mt-console --vertical --flute G A\# C', but as you
+see it is not so obvious, so just keep in mind there is always a
+possibility to enter correspondent bemoll everywhere you think of
+diese.
 
 However, when used from stdin the corresponded 'sharped' values should
 be recognised.
@@ -80,21 +85,33 @@ be recognised.
 Output formats
 ==============
 
-The console program should accept the --output parameter with these
-values: **letters** (1), **freq** (2), **names** (3). By default the first oneis
-used (letters).
+The console program should accept the **--output** parameter with
+these values: **letters** (1), **freq** (2), **names** (3), **flute**
+(4). By default the first oneis used (letters).
 
-| (1) |  (2)    |  (3)
-|:--- |:-------:|:-----
-|  C  | 261.626 | Do
-|  C# | 277.180 | Do-diese
-|  D  | 293.665 | Re
-|  D# | 311.127 | Re-diese
-|  E  | 329.628 | Mi
-|  F  | 349.228 | Fa
-|  F# | 369.994 | Fa-diese
-|  G  | 391.995 | Sol
-|  G# | 415.305 | Sol-diese
-|  A  | 440.000 | La
-|  A# | 466.164 | La-diese
-|  H  | 493.883 | Si
+| (1) |  (2)    |  (3)     |    (4)
+|:--- |:-------:|:-------- |:---------
+|  C  | 261.626 | Do       | (X) X X X  X X X X
+|  C# | 277.180 | Do-diese | (X) X X X  X X X .
+|  D  | 293.665 | Re       | (X) X X X  X X X O
+|  D# | 311.127 | Re-diese | (X) X X X  X X . O
+|  E  | 329.628 | Mi       | (X) X X X  X X O O
+|  F  | 349.228 | Fa       | (X) X X X  X O O O
+|  F# | 369.994 | Fa-diese | (X) X X X  O X X X
+|  G  | 391.995 | Sol      | (X) X X X  O O O O
+|  G# | 415.305 | Sol-diese| (X) X X O  X X . O
+|  A  | 440.000 | La       | (X) X X O  O O O O
+|  A# | 466.164 | La-diese | (X) X O X  X O O O
+|  H  | 493.883 | Si       | (X) X O O  O O O O
+
+
+1. **letters** -- just an english letters
+2. **freq** -- in Hz, just to practice floating-point real numbers
+3. **names** -- common note names, french notation (as used in Ukraine)
+4. **flute** -- applicature (aka fingering chart in english) for
+  block-flute (aka recorder in english), german system (as used in
+  classic music education system in Ukraine). 'X' means closed hole,
+  'O' stands for 'open' and '.' means 'half-open'.
+
+Nota bene, for flute fingering there is also an option --vertical
+which aligns the output vertically, each note on its own line.
