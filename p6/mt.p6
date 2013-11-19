@@ -48,10 +48,7 @@ sub MAIN (
 
   say;
 
-  if ($vertical) {
-    for @tr -> $str { say $str; }
-  } else {
-    say @tr.join: " ";
-  }
+  if ($vertical) { for @tr -> $str { say $str; } }
+  else { say @tr.join: " "; }
 
 }
