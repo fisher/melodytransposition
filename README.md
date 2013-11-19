@@ -105,7 +105,7 @@ these values: **letters** (1), **freq** (2), **names** (3), **flute**
 |  H  | 493.883 | Si       | (X) X O O  O O O O
 
 
-1. **letters** -- just an english letters
+1. **letters** -- just an english note letters
 2. **freq** -- in Hz, just to practice floating-point real numbers
 3. **names** -- common note names, french notation (as used in Ukraine)
 4. **flute** -- applicature (aka fingering chart in english) for
@@ -113,5 +113,5 @@ these values: **letters** (1), **freq** (2), **names** (3), **flute**
   classic music education system in Ukraine). 'X' means closed hole,
   'O' stands for 'open' and '.' means 'half-open'.
 
-Nota bene, for flute fingering there is also an option --vertical
+Nota bene, for flute fingering there is also an option **--vertical**
 which aligns the output vertically, each note on its own line.
