@@ -8,6 +8,7 @@ use lib "./";
 use myNotes;
 
 
+# will use this hash to determine pitch numbers for known notes
 my %known;
 for @myNotes::bank.kv -> $idx, %rec
   {
@@ -16,8 +17,6 @@ for @myNotes::bank.kv -> $idx, %rec
     %known{ %rec{'Input'}[$j] } = $idx;
    }
   };
-
-my $output;
 
 sub MAIN (
      Int :$bias = 0,
