@@ -1,6 +1,8 @@
 #!/usr/bin/guile -s
 !#
 
+(use-modules (ice-9 getopt-long))
+
 (define (main args)
   (let* ((option-spec '((version (single-char #\v) (value #f))
                         (help    (single-char #\h) (value #f))))
@@ -19,3 +21,5 @@ getopt-long-example [options]
 ")))
         (begin
           (display "Hello, World!") (newline)))))
+
+(main (command-line))
