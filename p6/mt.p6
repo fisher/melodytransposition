@@ -48,7 +48,7 @@ sub MAIN (
 
   say;
 
-  if ($vertical) { for @tr -> $str { say $str; } }
+  if ($vertical) { say $_ for @tr; }
   else { say @tr.join: " "; }
 
 }
