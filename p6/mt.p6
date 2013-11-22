@@ -18,7 +18,12 @@ for @myNotes::bank.kv -> $idx, %rec
    }
   };
 
-sub MAIN (
+multi sub MAIN ( Bool:$version! )
+  {
+    say "mt-console, perl6 version";
+  }
+
+multi sub MAIN (
      Int :$bias = 0,
      :$output = 'letters',
      Bool:$verbose = False,
