@@ -115,3 +115,4 @@ these values: **letters** (1), **freq** (2), **names** (3), **flute**
 
 Nota bene, for flute fingering there is also an option **--vertical**
 which aligns the output vertically, each note on its own line.
+
