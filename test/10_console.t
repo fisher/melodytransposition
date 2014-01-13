@@ -47,7 +47,7 @@ if ( open (PIPE, "mt-console |") ) {
   while (<PIPE>) {
     /usage/i and $f=1;
   }
-  is ( $f, 1, "found usage when without any parameters");
+  is ( $f, 1, "looking for usage when no parameters are given");
   close PIPE;
 
 } else {
