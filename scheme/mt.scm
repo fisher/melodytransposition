@@ -4,6 +4,18 @@
 (use-modules (ice-9 getopt-long))
 (use-modules (ice-9 format))
 
+(define (help)
+              (display "\
+Usage: mt.scm [options] [<input> ...]
+
+  -v, --version    Display version
+  -h, --help       Display this help
+  -b, --bias       Bias for melody transposition, an integer
+  -o, --output     Output format, letters|names|freq|flute
+      --verbose    Be more noisy
+      --vertical   Format the output vertically (for flute)
+"))
+
 (define (main args)
   (let* ((option-spec '((version (single-char #\v) (value #f))
 			(bias    (single-char #\b) (value 0))
@@ -22,21 +34,12 @@
         (begin
           (if version-wanted
               (display "mt-console, guile version (scheme)\n"))
-          (if help-wanted
-              (display "\
-Usage: mt.scm [options] [<input> ...]
-
-  -v, --version    Display version
-  -h, --help       Display this help
-  -b, --bias       Bias for melody transposition, an integer
-  -o, --output     Output format, letters|names|freq|flute
-      --verbose    Be more noisy
-      --vertical   Format the output vertically (for flute)
-")))
+          (if help-wanted (help)))
         (begin
           (display "Hello, World!") (newline)
-	  (format #t "~:[~;verbose, ~]bias=~c" verbose-wanted bias)
-	  (newline)
-	  ) )))
+          (format #t "~:[~;verbose, ~]bias=~c" verbose-wanted bias)
+          (newline)
+          ) )))
 
-(main (command-line))
+(if (eq? (length (command-line)) 1) (help) (main (command-line)))
+

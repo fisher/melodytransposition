@@ -36,7 +36,12 @@ run with simple parameter a couple of times and measure average time
 =cut
 
 is ( -e "mt-console", 1, "looking for 'mt-console' in the current directory");
+
+# ----------------------------------------
+
 is ( -x "mt-console", 1, "'mt-console' is executable");
+
+# ----------------------------------------
 
 # will use it as a flag or counter
 my $f = 0;
