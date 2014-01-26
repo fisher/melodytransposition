@@ -26,10 +26,10 @@ Usage: mt.scm [options] [<input> ...]
          (options (getopt-long args option-spec))
 	 (bias (option-ref options 'bias 0))
 	 (output-format (option-ref options 'output 'letters))
-         (help-wanted (option-ref options 'help #f))
+     (help-wanted (option-ref options 'help #f))
 	 (verbose-wanted (option-ref options 'verbose #f))
-         (version-wanted (option-ref options 'version #f))
-	 (vertical-layout (option-ref options 'vertical #f)))
+     (version-wanted (option-ref options 'version #f))
+	 (vertical-layout (option-ref options 'vertical #f)) )
     (if (or version-wanted help-wanted)
         (begin
           (if version-wanted
@@ -39,7 +39,6 @@ Usage: mt.scm [options] [<input> ...]
           (display "Hello, World!") (newline)
           (format #t "~:[~;verbose, ~]bias=~c" verbose-wanted bias)
           (newline)
-          ) )))
+          ) )) )
 
 (if (eq? (length (command-line)) 1) (help) (main (command-line)))
-
