@@ -16,20 +16,28 @@ Usage: mt.scm [options] [<input> ...]
       --vertical   Format the output vertically (for flute)
 "))
 
+(define (is-output? string) #t)
+;  (begin
+ ;   (display "is-output? yes for now!")
+  ;  #t
+   ; ))
+
 (define (main args)
-  (let* ((option-spec '((version (single-char #\v) (value #f))
-			(bias    (single-char #\b) (value 0))
-			(output  (single-char #\o) (value 'letters))
-			(verbose                   (value #f))
+  (let* ((option-spec
+          '(
+            (version (single-char #\V) (value #f))
+            (bias    (single-char #\b) (value #t))
+			(output  (single-char #\o) (value #t) (predicate lambda is-output?))
+			(verbose (single-char #\v) (value #f))
 			(vertical                  (value #f))
-                        (help    (single-char #\h) (value #f))))
-         (options (getopt-long args option-spec))
-	 (bias (option-ref options 'bias 0))
-	 (output-format (option-ref options 'output 'letters))
-     (help-wanted (option-ref options 'help #f))
-	 (verbose-wanted (option-ref options 'verbose #f))
-     (version-wanted (option-ref options 'version #f))
-	 (vertical-layout (option-ref options 'vertical #f)) )
+            (help    (single-char #\h) (value #f))))
+         (options (getopt-long args option-spec #:stop-at-first-non-option #t))
+         (bias (option-ref options 'bias 0))
+         (output-format (option-ref options 'output 'letters))
+         (help-wanted (option-ref options 'help #f))
+         (verbose-wanted (option-ref options 'verbose #f))
+         (version-wanted (option-ref options 'version #f))
+         (vertical-layout (option-ref options 'vertical #f)) )
     (if (or version-wanted help-wanted)
         (begin
           (if version-wanted
@@ -37,8 +45,10 @@ Usage: mt.scm [options] [<input> ...]
           (if help-wanted (help)))
         (begin
           (display "Hello, World!") (newline)
-          (format #t "~:[~;verbose, ~]bias=~c" verbose-wanted bias)
+          (format #t "~:[~;verbose, ~]bias=~b" verbose-wanted bias)
           (newline)
           ) )) )
 
 (if (eq? (length (command-line)) 1) (help) (main (command-line)))
+
+;;(main (command-line))
