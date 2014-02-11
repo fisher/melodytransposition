@@ -1,5 +1,8 @@
 #!/usr/bin/env perl6
 #
+# tested against rakudo star 2013.10, 2013.11, 2013.12, 2014.01
+# on the Parrot vm
+#
 
 use v6;
 
