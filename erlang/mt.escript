@@ -1,6 +1,7 @@
 #!/usr/bin/env escript
 %%! -smp enable
 
+%% git clone git@github.com:jcomellas/getopt.git
 
 -record(
    note, {
