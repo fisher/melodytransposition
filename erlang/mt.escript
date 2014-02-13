@@ -24,3 +24,15 @@ parse_args([S | Tail]) ->
 parse_args([]) ->
     [].
 
+-spec note_bank() -> bank().
+note_bank() ->
+    [
+     #note{
+        name = "Do", letters = "C", freq = 261.626,
+        input = [ "C", "His" ],
+        flute = "(X) X X X  X X X X"},
+     #note{
+        name = "Do-diese", letters = "C#", freq = 277.180,
+        input = [ "C#", "Cd", "Db" ],
+        flute = "(X) X X X  X X X ."}
+    ].
