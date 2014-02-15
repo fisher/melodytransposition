@@ -40,7 +40,7 @@ note_bank() ->
         input = [ "D" ],
         flute = "(X) X X X  X X X O"},
      #note{
-        name = "Re-diese", letters = "D#", freq => 311.127,
+        name = "Re-diese", letters = "D#", freq = 311.127,
         input = [ "D#", "Dd", "Eb" ],
         flute = "(X) X X X  X X . O"},
      #note{
