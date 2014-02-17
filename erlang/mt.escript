@@ -16,12 +16,9 @@
 
 -spec main(Args :: [string()]) -> ok.
 main(Args) ->
-    parse_args(Args).
+    getopt:parse(optspecs(), Args).
 
--spec parse_args(Args :: [string()]) -> [string()].
-parse_args([S | Tail]) ->
-    [S | parse_args(Tail)];
-parse_args([]) ->
+optspecs() ->
     [].
 
 %% known notes database
