@@ -16,10 +16,17 @@
 
 -spec main(Args :: [string()]) -> ok.
 main(Args) ->
-    getopt:parse(optspecs(), Args).
+    Rep = getopt:parse(optspecs(), Args),
+    io:format("~p~n", [Rep]).
 
 optspecs() ->
-    [].
+    [
+     {verbose_flag, "v", "verbose", {boolean, false}, "be verbose"},
+     {bias, "b", "bias", {integer, 0}, "bias in semitones"},
+     {vertical_flag, "V", "vertical", {boolean, false}, "vertical arrange"},
+     {output, "o", "output", {string, "flute"}, "output format"},
+     {version_flag, undefined, "version", {boolean, false}, "show the version"}
+    ].
 
 %% known notes database
 -spec bank() -> note_bank().
