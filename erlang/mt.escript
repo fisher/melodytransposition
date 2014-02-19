@@ -24,10 +24,27 @@ main(Args) ->
             io:format("Error, unknown option: ~p~n", [Option]),
             getopt:usage(optspecs(), "mt.escript", "<melody spec>");
         {ok, {Options, Melody}} ->
-            io:format("options: ~p, melody: ~p~n", [Options, Melody]);
+            io:format("options: ~p, melody: ~p~n", [Options, Melody]),
+            L = [ trans(N, proplists:get_value(bias, Options)) || N <- Melody ],
+            io:format("L: ~p~n", [L]);
         _ ->
             io:format("~p~n", [Rep])
     end.
+
+trans(Note, Bias) ->
+    lists:foldl(
+      fun(_E, {found, F}) ->
+              {found, F};
+         (E, Accum) ->
+              case lists:member(Note, E#note.input) of
+                  true ->
+                      {found, E};
+                  _ ->
+                      Accum
+              end
+      end,
+      {error, Note},
+      bank()).
 
 optspecs() ->
     [
