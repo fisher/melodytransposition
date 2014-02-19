@@ -47,7 +47,7 @@ is ( -x "mt-console", 1, "'mt-console' is executable");
 my $f = 0;
 
 # first opening pipe is a subject to check
-if ( open (PIPE, "mt-console |") ) {
+if ( open (PIPE, "mt-console 2>&1 |") ) {
 
   while (<PIPE>) {
     /usage/i and $f=1;
