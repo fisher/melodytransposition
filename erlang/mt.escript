@@ -15,16 +15,26 @@
 -type note_bank() :: [ #note{} ].
 
 -spec main(Args :: [string()]) -> ok.
+main([]) ->
+    getopt:usage(optspecs(), "mt.escript", "<melody spec>");
 main(Args) ->
     Rep = getopt:parse(optspecs(), Args),
-    io:format("~p~n", [Rep]).
+    case Rep of
+        {error, {invalid_option, Option}} ->
+            io:format("Error, unknown option: ~p~n", [Option]),
+            getopt:usage(optspecs(), "mt.escript", "<melody spec>");
+        {ok, {Options, Melody}} ->
+            io:format("options: ~p, melody: ~p~n", [Options, Melody]);
+        _ ->
+            io:format("~p~n", [Rep])
+    end.
 
 optspecs() ->
     [
-     {verbose_flag, "v", "verbose", {boolean, false}, "be verbose"},
-     {bias, "b", "bias", {integer, 0}, "bias in semitones"},
-     {vertical_flag, "V", "vertical", {boolean, false}, "vertical arrange"},
-     {output, "o", "output", {string, "flute"}, "output format"},
+     {verbose_flag, $v, "verbose", {boolean, false}, "be verbose"},
+     {bias, $b, "bias", {integer, 0}, "bias in semitones"},
+     {vertical_flag, $V, "vertical", {boolean, false}, "vertical arrange"},
+     {output, $o, "output", {string, "flute"}, "output format"},
      {version_flag, undefined, "version", {boolean, false}, "show the version"}
     ].
 
