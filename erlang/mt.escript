@@ -5,11 +5,12 @@
 
 -record(
    note, {
-     name    :: string(),     %% Full name of note
-     letters :: string(),     %% Short printable name
-     input   :: [ string() ], %% Possible values on input
-     freq    :: float(),      %% frequency of the sound
-     flute   :: string()      %% block-flute fingering chart
+     name     :: string(),     %% Full name of note
+     letters  :: string(),     %% Short printable name
+     input    :: [ string() ], %% Possible values on input
+     freq     :: float(),      %% frequency of the sound
+     flute    :: string(),     %% block-flute fingering chart
+     position :: integer()
     }).
 
 -type note_bank() :: [ #note{} ].
@@ -25,20 +26,27 @@ main(Args) ->
             getopt:usage(optspecs(), "mt.escript", "<melody spec>");
         {ok, {Options, Melody}} ->
             io:format("options: ~p, melody: ~p~n", [Options, Melody]),
-            L = [ trans(N, proplists:get_value(bias, Options)) || N <- Melody ],
-            io:format("L: ~p~n", [L]);
+            L = [ find(N) || N <- Melody ],
+            io:format("L: ~p~n", [L]),
+            case trans(L) of
+                {error, Reason} ->
+                    io:format("Error: ~p~n", [Reason]),
+                    getopt:usage(optspecs(), "mt.escript", "<melody spec>");
+                Other ->
+                    io:format("Other: ~p~n", [Other])
+            end;
         _ ->
             io:format("~p~n", [Rep])
     end.
 
-trans(Note, Bias) ->
+find(Note) ->
     lists:foldl(
       fun(_E, {found, F}) ->
               {found, F};
          (E, Accum) ->
               case lists:member(Note, E#note.input) of
                   true ->
-                      {found, E};
+                      {found, E#note.position};
                   _ ->
                       Accum
               end
@@ -60,39 +68,51 @@ optspecs() ->
 bank() ->
     [
      #note{
-        name = "Do", letters = "C", input = [ "C", "His" ],
+        name = "Do", letters = "C",
+        postition = 0, input = [ "C", "His" ],
         freq = 261.626, flute = "(X) X X X  X X X X"},
      #note{
-        name = "Do-diese", letters = "C#", input = [ "C#", "Cd", "Db" ],
+        name = "Do-diese", letters = "C#",
+        position = 1, input = [ "C#", "Cd", "Db" ],
         freq = 277.180, flute = "(X) X X X  X X X ."},
      #note{
-        name = "Re", letters = "D", input = [ "D" ],
+        name = "Re", letters = "D",
+        position = 2, input = [ "D" ],
         freq = 293.665, flute = "(X) X X X  X X X O"},
      #note{
-        name = "Re-diese", input = [ "D#", "Dd", "Eb" ],
-        letters = "D#", freq = 311.127, flute = "(X) X X X  X X . O"},
+        name = "Re-diese", letters = "D#",
+        position = 3, input = [ "D#", "Dd", "Eb" ],
+        freq = 311.127, flute = "(X) X X X  X X . O"},
      #note{
-        name = "Mi", letters = "E", input = [ "E", "Fb" ],
+        name = "Mi", letters = "E",
+        position = 4, input = [ "E", "Fb" ],
         freq = 329.628, flute = "(X) X X X  X X O O"},
      #note{
-        name = "Fa", letters = "F", input = [ "F", "Ed", "E#" ],
+        name = "Fa", letters = "F",
+        position = 5, input = [ "F", "Ed", "E#" ],
         freq = 349.228, flute = "(X) X X X  X O O O"},
      #note{
-        name = "Fa-diese", input = [ "F#", "Fd", "Gb" ],
-        letters = "F#", freq = 369.994, flute = "(X) X X X  O X X X"},
+        name = "Fa-diese", letters = "F#",
+        position = 6, input = [ "F#", "Fd", "Gb" ],
+        freq = 369.994, flute = "(X) X X X  O X X X"},
      #note{
-        name = "Sol", letters = "G", input = [ "G" ],
+        name = "Sol", letters = "G",
+        position = 7, input = [ "G" ],
         freq = 391.995, flute = "(X) X X X  O O O O"},
      #note{
-        name = "Sol-diese", input = [ "G#", "Gd", "Ab" ],
-        letters = "G#", freq = 415.305, flute = "(X) X X O  X X . O"},
+        name = "Sol-diese", letters = "G#",
+        position = 8, input = [ "G#", "Gd", "Ab" ],
+        freq = 415.305, flute = "(X) X X O  X X . O"},
      #note{
-        name = "La", input = [ "A" ],
-        letters = "A", freq = 440.000, flute = "(X) X X O  O O O O"},
+        name = "La", letters = "A",
+        position = 9, input = [ "A" ],
+        freq = 440.000, flute = "(X) X X O  O O O O"},
      #note{
-        name = "La-diese", input = [ "A#", "Ad", "B", "Bb", "Hb" ],
-        letters = "A#", freq = 466.164, flute = "(X) X O X  X O O O"},
+        name = "La-diese", letters = "A#",
+        position = 10, input = [ "A#", "Ad", "B", "Bb", "Hb" ],
+        freq = 466.164, flute = "(X) X O X  X O O O"},
      #note{
-        name = "Si", letters = "H", input = [ "Cb", "H" ],
+        name = "Si", letters = "H",
+        position = 11, input = [ "Cb", "H" ],
         freq = 493.883, flute = "(X) X O O  O O O O"}
     ].
