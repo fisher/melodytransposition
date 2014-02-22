@@ -28,7 +28,7 @@ main(Args) ->
             io:format("options: ~p, melody: ~p~n", [Options, Melody]),
             L = [ find(N) || N <- Melody ],
             io:format("L: ~p~n", [L]),
-            case trans(L) of
+            case trans(L, proplists:get_value(bias, Options)) of
                 {error, Reason} ->
                     io:format("Error: ~p~n", [Reason]),
                     getopt:usage(optspecs(), "mt.escript", "<melody spec>");
@@ -38,6 +38,27 @@ main(Args) ->
         _ ->
             io:format("~p~n", [Rep])
     end.
+
+trans(List, Bias) ->
+    lists:foldl(
+      fun(_, {error, Cause}) ->
+              {error, Cause};
+         ({error, Note}, _Acc) ->
+              {error, Note};
+         ({found, N}, Acc) ->
+              [padding(N +Bias) |Acc]
+      end,
+      [],
+      List).
+
+
+padding(N) when N > 11 ->
+    padding(N -12);
+padding(N) when N < 0 ->
+    padding(N +12);
+padding(Norm) ->
+    Norm.
+
 
 find(Note) ->
     lists:foldl(
@@ -69,7 +90,7 @@ bank() ->
     [
      #note{
         name = "Do", letters = "C",
-        postition = 0, input = [ "C", "His" ],
+        position = 0, input = [ "C", "His" ],
         freq = 261.626, flute = "(X) X X X  X X X X"},
      #note{
         name = "Do-diese", letters = "C#",
