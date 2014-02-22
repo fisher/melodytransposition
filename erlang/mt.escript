@@ -33,12 +33,28 @@ main(Args) ->
                     io:format("Error: ~p~n", [Reason]),
                     getopt:usage(optspecs(), "mt.escript", "<melody spec>");
                 Other ->
-                    io:format("Other: ~p~n", [Other])
+                    io:format("Other: ~p~n", [Other]),
+                    Outputs =
+                        lists:map(
+                          fun(N) ->
+                                  [ Note ] =
+                                      lists:filter(
+                                        fun(NR) when NR#note.position == N -> true;
+                                           (_) -> false
+                                        end, bank()),
+                                  Note#note.letters
+                          end,
+                          Other),
+                    io:format("Output: ~p~n", [string:join(Outputs, " ")])
             end;
         _ ->
             io:format("~p~n", [Rep])
     end.
 
+
+%% transpose the notes
+-spec trans( List :: [ {error, term()} | {found, N::integer()} ], Bias :: integer() ) ->
+                   [ Position :: integer() ] | {error, Cause :: term()}.
 trans(List, Bias) ->
     lists:foldl(
       fun(_, {error, Cause}) ->
@@ -52,6 +68,8 @@ trans(List, Bias) ->
       List).
 
 
+%% compensate bias to stay in [-11, 11]
+-spec padding( integer() ) -> integer().
 padding(N) when N > 11 ->
     padding(N -12);
 padding(N) when N < 0 ->
@@ -59,7 +77,8 @@ padding(N) when N < 0 ->
 padding(Norm) ->
     Norm.
 
-
+%% find the note for each single input lexem
+-spec find( Input::string() ) -> {found, N :: integer()} | {error, Input::string()}.
 find(Note) ->
     lists:foldl(
       fun(_E, {found, F}) ->
@@ -75,6 +94,8 @@ find(Note) ->
       {error, Note},
       bank()).
 
+%% options spec for getopt module
+-spec optspecs() -> getopt:option_spec().
 optspecs() ->
     [
      {verbose_flag, $v, "verbose", {boolean, false}, "be verbose"},
