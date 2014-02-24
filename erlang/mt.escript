@@ -45,7 +45,7 @@ main(Args) ->
                                   Note#note.letters
                           end,
                           Other),
-                    io:format("Output: ~p~n", [string:join(Outputs, " ")])
+                    io:format("Output: ~p~n", [string:join(lists:reverse(Outputs), " ")])
             end;
         _ ->
             io:format("~p~n", [Rep])
