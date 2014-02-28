@@ -35,13 +35,16 @@ run with simple parameter a couple of times and measure average time
 
 =cut
 
+
+# --- 1 ----------------------------------------
 is ( -e "mt-console", 1, "looking for 'mt-console' in the current directory");
 
-# ----------------------------------------
 
+# --- 2 ----------------------------------------
 is ( -x "mt-console", 1, "'mt-console' is executable");
 
-# ----------------------------------------
+
+# --- 3 ----------------------------------------
 
 # will use it as a flag or counter
 my $f = 0;
@@ -62,7 +65,7 @@ if ( open (PIPE, "mt-console 2>&1 |") ) {
 }
 
 
-# -----------------------------------------
+# --- 4 -----------------------------------------
 open PIPE, "mt-console --unknown 2>&1 |";
 
 $f = 0;
@@ -71,7 +74,7 @@ is ( $f, 1, "mt-console --unknown -> usage" );
 close PIPE;
 
 
-# -----------------------------------------
+# --- 5 -----------------------------------------
 open PIPE, "mt-console --unknown A B C 2>&1 |";
 
 $f = 0;
@@ -80,7 +83,7 @@ is ( $f, 1, "mt-console --unknown A B C -> usage" );
 close PIPE;
 
 
-# -----------------------------------------
+# --- 6 -----------------------------------------
 open PIPE, "mt-console C D E F G A H |";
 
 $f = 0;
@@ -92,7 +95,7 @@ is ( $f, 2, "melody repeated with zero transposition" );
 close PIPE;
 
 
-# -----------------------------------------
+# --- 7 -----------------------------------------
 open PIPE, "mt-console --bias=2 C D E F G A H |";
 
 $f = 0;
@@ -104,7 +107,7 @@ is ( $f, 1, "melody transposed by two" );
 close PIPE;
 
 
-# -----------------------------------------
+# --- 8 -----------------------------------------
 open PIPE, "mt-console --bias=3 C D E F G A H |";
 
 $f = 0;
@@ -116,7 +119,7 @@ is ( $f, 1, "melody transposed by three" );
 close PIPE;
 
 
-# -----------------------------------------
+# --- 9 -----------------------------------------
 open PIPE, "mt-console --bias=-1 C D E F G A H |";
 
 $f = 0;
