@@ -15,6 +15,14 @@
 
 -type note_bank() :: [ #note{} ].
 
+debug(Options, Format, Args) ->
+    case proplists:get_value(verbose_flag, Options) of
+        true ->
+            io:format(Format, Args);
+        _ ->
+            ignore
+    end.
+
 -spec main(Args :: [string()]) -> ok.
 main([]) ->
     getopt:usage(optspecs(), "mt.escript", "<melody spec>");
@@ -25,15 +33,15 @@ main(Args) ->
             io:format("Error, unknown option: ~p~n", [Option]),
             getopt:usage(optspecs(), "mt.escript", "<melody spec>");
         {ok, {Options, Melody}} ->
-            io:format("options: ~p, melody: ~p~n", [Options, Melody]),
+            debug(Options, "options: ~p, melody: ~p~n", [Options, Melody]),
             L = [ find(N) || N <- Melody ],
             io:format("L: ~p~n", [L]),
             case trans(L, proplists:get_value(bias, Options)) of
                 {error, Reason} ->
                     io:format("Error: ~p~n", [Reason]),
                     getopt:usage(optspecs(), "mt.escript", "<melody spec>");
-                Other ->
-                    io:format("Other: ~p~n", [Other]),
+                KeysTransposed ->
+                    debug(Options, "KeysTransposed: ~p~n", [KeysTransposed]),
                     Outputs =
                         lists:map(
                           fun(N) ->
@@ -44,13 +52,12 @@ main(Args) ->
                                         end, bank()),
                                   Note#note.letters
                           end,
-                          Other),
+                          KeysTransposed),
                     io:format("Output: ~p~n", [string:join(lists:reverse(Outputs), " ")])
             end;
         _ ->
             io:format("~p~n", [Rep])
     end.
-
 
 %% transpose the notes
 -spec trans( List :: [ {error, term()} | {found, N::integer()} ], Bias :: integer() ) ->
