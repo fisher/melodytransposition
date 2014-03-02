@@ -35,7 +35,8 @@ main(Args) ->
         {ok, {Options, Melody}} ->
             debug(Options, "options: ~p, melody: ~p~n", [Options, Melody]),
             L = [ find(N) || N <- Melody ],
-            io:format("L: ~p~n", [L]),
+            io:format("~n", []),
+            debug(Options, "L: ~p~n", [L]),
             case trans(L, proplists:get_value(bias, Options)) of
                 {error, Reason} ->
                     io:format("Error: ~p~n", [Reason]),
@@ -93,6 +94,7 @@ find(Note) ->
          (E, Accum) ->
               case lists:member(Note, E#note.input) of
                   true ->
+                      io:format("~s ", [E#note.letters]),
                       {found, E#note.position};
                   _ ->
                       Accum
