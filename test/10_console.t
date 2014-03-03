@@ -4,7 +4,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 9;
+use Test::More tests => 11;
 
 =pod
 
@@ -128,4 +128,26 @@ while (<PIPE>) {
 }
 
 is ( $f, 1, "melody transposed by minus one" );
+close PIPE;
+
+# --- 10 -----------------------------------------
+open PIPE, "mt-console --bias=14 C D E F G A H |";
+
+$f = 0;
+while (<PIPE>) {
+  /D E F# G A H C#/ and $f++;
+}
+
+is ( $f, 1, "melody transposed by fourteen");
+close PIPE;
+
+# --- 11 -----------------------------------------
+open PIPE, "mt-console --bias=-13 C D E F G A H |";
+
+$f = 0;
+while (<PIPE>) {
+  /H C# D# E F# G# A#/ and $f++;
+}
+
+is ( $f, 1, "melody transposed by minus thirteen");
 close PIPE;
