@@ -78,12 +78,9 @@ trans(List, Bias) ->
 
 %% compensate bias to stay in [-11, 11]
 -spec padding( integer() ) -> integer().
-padding(N) when N > 11 ->
-    padding(N -12);
-padding(N) when N < 0 ->
-    padding(N +12);
-padding(Norm) ->
-    Norm.
+padding(N) when N > 11 ->     padding(N -12);
+padding(N) when N < 0  ->     padding(N +12);
+padding(Norm)          ->     Norm.
 
 %% find the note for each single input lexem
 -spec find( Input::string() ) -> {found, N :: integer()} | {error, Input::string()}.
@@ -94,6 +91,7 @@ find(Note) ->
          (E, Accum) ->
               case lists:member(Note, E#note.input) of
                   true ->
+                      %% expected side-effect
                       io:format("~s ", [E#note.letters]),
                       {found, E#note.position};
                   _ ->
