@@ -46,8 +46,8 @@ multi sub MAIN (
      print "$note ";
      if (defined %known{$note}) {
        $trans = %known{$note} + $bias;
-       $trans -= 12 if ($trans > 11);
-       $trans += 12 if ($trans < 0);
+       while ($trans > 11) { $trans -= 12 };
+       $trans += 12 while ($trans < 0);
        @tr.push: @myNotes::bank[$trans]{$output};
      } else {
        @tr.push: "?";
@@ -60,3 +60,4 @@ multi sub MAIN (
   else { say @tr.join: " "; }
 
 }
+
