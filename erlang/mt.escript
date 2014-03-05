@@ -34,31 +34,40 @@ main(Args) ->
             getopt:usage(optspecs(), "mt.escript", "<melody spec>");
         {ok, {Options, Melody}} ->
             debug(Options, "options: ~p, melody: ~p~n", [Options, Melody]),
-            L = [ find(N) || N <- Melody ],
-            io:format("~n", []),
-            debug(Options, "L: ~p~n", [L]),
-            case trans(L, proplists:get_value(bias, Options)) of
-                {error, Reason} ->
-                    io:format("Error: ~p~n", [Reason]),
+            case proplists:get_value(help_flag, Options) of
+                true ->
                     getopt:usage(optspecs(), "mt.escript", "<melody spec>");
-                KeysTransposed ->
-                    debug(Options, "KeysTransposed: ~p~n", [KeysTransposed]),
-                    Outputs =
-                        lists:map(
-                          fun(N) ->
-                                  [ Note ] =
-                                      lists:filter(
-                                        fun(NR) when NR#note.position == N -> true;
-                                           (_) -> false
-                                        end, bank()),
-                                  Note#note.letters
-                          end,
-                          KeysTransposed),
-                    io:format("Output: ~p~n", [string:join(lists:reverse(Outputs), " ")])
+                _ ->
+                    chainload(Options, Melody)
             end;
         _ ->
             io:format("~p~n", [Rep])
     end.
+
+chainload(Options, Melody) ->
+    L = [ find(N) || N <- Melody ],
+    io:format("~n", []),
+    debug(Options, "L: ~p~n", [L]),
+    case trans(L, proplists:get_value(bias, Options)) of
+        {error, Reason} ->
+            io:format("Error: ~p~n", [Reason]),
+            getopt:usage(optspecs(), "mt.escript", "<melody spec>");
+        KeysTransposed ->
+            debug(Options, "KeysTransposed: ~p~n", [KeysTransposed]),
+            Outputs =
+                lists:map(
+                  fun(N) ->
+                          [ Note ] =
+                              lists:filter(
+                                fun(NR) when NR#note.position == N -> true;
+                                   (_) -> false
+                                end, bank()),
+                          Note#note.letters
+                  end,
+                  KeysTransposed),
+            io:format("Output: ~p~n", [string:join(lists:reverse(Outputs), " ")])
+    end.
+
 
 %% transpose the notes
 -spec trans( List :: [ {error, term()} | {found, N::integer()} ], Bias :: integer() ) ->
@@ -105,6 +114,7 @@ find(Note) ->
 -spec optspecs() -> getopt:option_spec().
 optspecs() ->
     [
+     {help_flag, $h, "help", {boolean, false}, "show this help"},
      {verbose_flag, $v, "verbose", {boolean, false}, "be verbose"},
      {bias, $b, "bias", {integer, 0}, "bias in semitones"},
      {vertical_flag, $V, "vertical", {boolean, false}, "vertical arrange"},
