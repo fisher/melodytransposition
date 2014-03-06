@@ -15,6 +15,8 @@
 
 -type note_bank() :: [ #note{} ].
 
+-type options() :: [ {Key::atom(), Val::term()} ].
+
 debug(Options, Format, Args) ->
     case proplists:get_value(verbose_flag, Options) of
         true ->
@@ -55,19 +57,32 @@ chainload(Options, Melody) ->
         KeysTransposed ->
             debug(Options, "KeysTransposed: ~p~n", [KeysTransposed]),
             Outputs =
-                lists:map(
-                  fun(N) ->
-                          [ Note ] =
-                              lists:filter(
-                                fun(NR) when NR#note.position == N -> true;
-                                   (_) -> false
-                                end, bank()),
-                          Note#note.letters
-                  end,
-                  KeysTransposed),
-            io:format("Output: ~p~n", [string:join(lists:reverse(Outputs), " ")])
+                lists:reverse(
+                  lists:map(
+                    fun(N) ->
+                            [ Note ] =
+                                lists:filter(
+                                  fun(NR) when NR#note.position == N -> true;
+                                     (_) -> false
+                                  end, bank()),
+                            Note#note.letters
+                    end,
+                    KeysTransposed)),
+            printout(Outputs, Options)
     end.
 
+
+%% output the transposed notes
+-spec printout( Output :: [ Note :: string() ], Options :: options() ) ->
+                      no_return().
+printout(Outputs, Options) ->
+    case proplists:get_value(vertical_flag, Options) of
+        true ->
+            [ io:format("~s~n", [E]) || E <- Outputs ];
+        _ ->
+            [ io:format("~s ", [E]) || E <- Outputs],
+            io:format("~n", [])
+    end.
 
 %% transpose the notes
 -spec trans( List :: [ {error, term()} | {found, N::integer()} ], Bias :: integer() ) ->
