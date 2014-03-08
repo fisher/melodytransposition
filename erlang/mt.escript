@@ -65,7 +65,12 @@ chainload(Options, Melody) ->
                                   fun(NR) when NR#note.position == N -> true;
                                      (_) -> false
                                   end, bank()),
-                            Note#note.letters
+                            case proplists:get_value(output, Options) of
+                                "letters" ->
+                                    Note#note.letters;
+                                _ ->
+                                    float_to_list(Note#note.freq)
+                            end
                     end,
                     KeysTransposed)),
             printout(Outputs, Options)
@@ -133,7 +138,7 @@ optspecs() ->
      {verbose_flag, $v, "verbose", {boolean, false}, "be verbose"},
      {bias, $b, "bias", {integer, 0}, "bias in semitones"},
      {vertical_flag, $V, "vertical", {boolean, false}, "vertical arrange"},
-     {output, $o, "output", {string, "flute"}, "output format"},
+     {output, $o, "output", {string, "letters"}, "output format"},
      {version_flag, undefined, "version", {boolean, false}, "show the version"}
     ].
 
