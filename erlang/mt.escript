@@ -73,7 +73,7 @@ chainload(Options, Melody) ->
                                 "flute" ->
                                     Note#note.flute;
                                 "freq" ->
-                                    float_to_list(Note#note.freq);
+                                    io_lib:format("~.3f", [Note#note.freq]);
                                 _ ->
                                     "??"
                             end
