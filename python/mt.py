@@ -28,6 +28,6 @@ def main():
 
 def usage():
     print "usage: mt.py <melody spec>"
-    
+
 if __name__ == "__main__":
     main()
