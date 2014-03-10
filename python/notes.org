@@ -1,3 +1,4 @@
 This directory was added just as a reminder.
 
 * there is 3.0 vs 2.7
+* there are getopt and argparse for options parsing
