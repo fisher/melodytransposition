@@ -46,6 +46,8 @@ main(Args) ->
             io:format("~p~n", [Rep])
     end.
 
+-spec chainload(Options :: options(), Melody :: [ string() ] ) ->
+                       no_return().
 chainload(Options, Melody) ->
     L = [ find(N) || N <- Melody ],
     io:format("~n", []),
