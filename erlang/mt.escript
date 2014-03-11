@@ -40,7 +40,12 @@ main(Args) ->
                 true ->
                     getopt:usage(optspecs(), "mt.escript", "<melody spec>");
                 _ ->
-                    chainload(Options, Melody)
+                    case proplists:get_value(version_flag, Options) of
+                        true ->
+                            io:format("./mt.escript, escript version (erlang)~n", []);
+                        _ ->
+                            chainload(Options, Melody)
+                    end
             end;
         _ ->
             io:format("~p~n", [Rep])
