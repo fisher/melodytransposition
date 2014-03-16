@@ -1,0 +1,29 @@
+Alto Soprn    German         English        Alternate
+----+-----+--------------+--------------+--------------
+0F  : 1C  :  X|XXX|XXXX  :  -|---|----  :
+0F# : 1C# :  X|XXX|XXXö  :  -|---|----  :
+0G  : 1D  :  X|XXX|XXXO  :  -|---|----  :
+0G# : 1D# :  X|XXX|XXöO  :  -|---|----  :
+0A  : 1E  :  X|XXX|XXOO  :  -|---|----  :
+0A# : 1F  :  X|XXX|XOOO  :  X|XXX|XOXX  :
+0H  : 1F# :  X|XXX|OXXX  :  X|XXX|OXXO  :
+1C  : 1G  :  X|XXX|OOOO  :  -|---|----  :
+1C# : 1G# :  X|XXO|XXöO  :  -|---|----  :
+1D  : 1A  :  X|XXO|OOOO  :  -|---|----  :
+1D# : 1A# :  X|XOX|XOOO  :  -|---|----  :  X|OXX|XOOO
+1E  : 1H  :  X|XOO|OOOO  :  -|---|----  :  X|OXX|OOOO
+1F  : 2C  :  X|OXO|OOOO  :  -|---|----  :
+1F# : 2C# :  O|XXO|OOOO  :  -|---|----  :  X|OOO|OOOO
+1G  : 2D  :  O|OXO|OOOO  :  -|---|----  :
+1G# : 2D# :  O|OXX|XXXO  :  -|---|----  :
+1A  : 2E  :  ö|XXX|XXOO  :  -|---|----  :
+1A# : 2F  :  ö|XXX|XOOO  :  ö|XXX|XOXO  :
+1H  : 2F# :  ö|XXX|OXOX  :  ö|XXX|OXOO  :  ö|XXX|OXöO (g)
+2C  : 2G  :  ö|XXX|OOOO  :  -|---|----  :
+2C# : 2G# :  ö|XXX|OXXX  :  ö|XXO|XOOO  :
+2AD : 2A  :  ö|XXO|OOOO  :  -|---|----  :
+2D# : 2A# :  ö|XXO|XXXO  :  -|---|----  :
+2E  : 2H  :  ö|XXO|XXOO  :  -|---|----  :
+2F  : 3C  :  ö|XOO|XXOO  :  -|---|----  :
+2F# : 3C# :  ö|XöX|XOXX  :  -|---|----  :
+2G  : 3D  :  ö|XOX|XOXö  :  -|---|----  :
