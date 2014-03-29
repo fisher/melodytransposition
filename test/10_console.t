@@ -4,7 +4,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 11;
+use Test::More tests => 12;
 
 =pod
 
@@ -150,4 +150,15 @@ while (<PIPE>) {
 }
 
 is ( $f, 1, "melody transposed by minus thirteen");
+close PIPE;
+
+# --- 12 -----------------------------------------
+open PIPE, "mt-console --output=flute E |";
+
+$f = 0;
+while (<PIPE>) {
+  /\(X\) X X X  X X O O/ and $f++;
+}
+
+is ( $f, 1, "output=flute for E");
 close PIPE;
