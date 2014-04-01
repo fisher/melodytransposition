@@ -2,6 +2,8 @@
 #
 
 
+# NB: getopt.getopt can't handle options given _after_ melody spec
+
 import getopt, sys
 
 def main():
@@ -24,10 +26,12 @@ def main():
             output = a
         else:
             assert False, "unhandled option"
-    # ...
+    print "verbose: ", verbose
+    print "output : ", output
+    print "melody : ", args
 
 def usage():
-    print "usage: mt.py <melody spec>"
+    print "usage: ", sys.argv[0], " <melody spec>"
 
 if __name__ == "__main__":
     main()
