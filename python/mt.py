@@ -6,6 +6,19 @@
 
 import getopt, sys
 
+verbose = False
+vertical = False
+bias = 0
+output = None
+args = None
+
+def qert():
+    print "verbose: ", verbose
+    print "vertical:", vertical
+    print "bias   : ", bias
+    print "output : ", output
+    print "melody : ", args
+
 def main():
     try:
         opts, args = getopt.getopt(sys.argv[1:], "ho:vVb",
@@ -15,10 +28,6 @@ def main():
         print str(err) # will print something like "option -a not recognized"
         usage()
         sys.exit(2)
-    output = None
-    verbose = False
-    vertical = False
-    bias = 0
     for o, a in opts:
         if o == "-v":
             verbose = True
@@ -36,14 +45,11 @@ def main():
             sys.exit()
         else:
             assert False, "FIXME: unhandled option"
-    print "verbose: ", verbose
-    print "vertical:", vertical
-    print "bias   : ", bias
-    print "output : ", output
-    print "melody : ", args
+    qert()
 
 def usage():
     print "usage: ", sys.argv[0], " <melody spec>"
 
 if __name__ == "__main__":
     main()
+
