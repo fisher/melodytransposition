@@ -2,6 +2,11 @@
 #
 
 
+"""
+Just a reminder how multiline comments are made.
+It's something like that
+"""
+
 # NB: getopt.getopt can't handle options given _after_ melody spec
 
 import getopt, sys
