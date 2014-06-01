@@ -10,6 +10,7 @@ It's something like that
 # NB: getopt.getopt can't handle options given _after_ melody spec
 
 import getopt, sys
+from notebank import bank
 
 verbose = False
 vertical = False
@@ -17,12 +18,14 @@ bias = 0
 output = None
 args = None
 
+
 def qert():
     print "verbose: ", verbose
     print "vertical:", vertical
     print "bias   : ", bias
     print "output : ", output
     print "melody : ", args
+    print "bank   : ", bank
 
 def main():
     if len(sys.argv) <2:
