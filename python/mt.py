@@ -12,13 +12,14 @@ It's something like that
 import getopt, sys
 from notebank import bank
 
+# defaults
 verbose = False
 vertical = False
 bias = 0
 output = None
 args = None
 
-
+# just a debug to show the variables
 def qert():
     print "verbose: ", verbose
     print "vertical:", vertical
@@ -39,6 +40,7 @@ def main():
         print str(err) # will print something like "option -a not recognized"
         usage()
         sys.exit(2)
+    global verbose, vertical, output
     for o, a in opts:
         if o == "-v":
             verbose = True
@@ -48,6 +50,7 @@ def main():
         elif o in ("-o", "--output"):
             output = a
         elif o in ("-b", "--bias"):
+            global bias
             bias = a
         elif o in ("-V", "--vertical"):
             vertical = True
@@ -63,4 +66,3 @@ def usage():
 
 if __name__ == "__main__":
     main()
-
