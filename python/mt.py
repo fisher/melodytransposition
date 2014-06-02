@@ -20,7 +20,7 @@ output = None
 args = None
 
 # just a debug to show the variables
-def qert():
+def qert(args):
     print "verbose: ", verbose
     print "vertical:", vertical
     print "bias   : ", bias
@@ -59,7 +59,7 @@ def main():
             sys.exit()
         else:
             assert False, "FIXME: unhandled option"
-    qert()
+    qert(args)
 
 def usage():
     print "usage: ", sys.argv[0], " [options] <melody spec>"
