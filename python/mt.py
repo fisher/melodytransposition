@@ -28,6 +28,15 @@ def qert(args):
     print "melody : ", args
     print "bank   : ", bank
 
+def check_bank():
+    keys = bank[0].keys()
+    for i in bank:
+        if i.keys() != keys:
+            print "Something wrong with this bank record: ", i
+            sys.exit(1)
+    del keys[keys.index("input")]
+    return keys
+
 def main():
     if len(sys.argv) <2:
         usage()
@@ -41,6 +50,7 @@ def main():
         usage()
         sys.exit(3)
     global verbose, vertical, output
+    available_outputs = check_bank()
     for o, a in opts:
         if o == "-v":
             verbose = True
@@ -48,9 +58,12 @@ def main():
             usage()
             sys.exit()
         elif o in ("-o", "--output"):
-            if a in ["letters","flute","freq","name"]:
+            if a in available_outputs:
                 output = a
-            # otherwise just keep the default setting
+            else:
+                print "Unknown output spec: ", a
+                usage()
+                sys.exit(3)
         elif o in ("-b", "--bias"):
             global bias
             bias = a
