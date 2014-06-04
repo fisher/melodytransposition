@@ -16,7 +16,7 @@ from notebank import bank
 verbose = False
 vertical = False
 bias = 0
-output = None
+output = "letters"
 args = None
 
 # just a debug to show the variables
@@ -39,7 +39,7 @@ def main():
         # print help information and exit:
         print str(err) # will print something like "option -a not recognized"
         usage()
-        sys.exit(2)
+        sys.exit(3)
     global verbose, vertical, output
     for o, a in opts:
         if o == "-v":
@@ -48,7 +48,9 @@ def main():
             usage()
             sys.exit()
         elif o in ("-o", "--output"):
-            output = a
+            if a in ["letters","flute","freq","name"]:
+                output = a
+            # otherwise just keep the default setting
         elif o in ("-b", "--bias"):
             global bias
             bias = a
@@ -59,6 +61,9 @@ def main():
             sys.exit()
         else:
             assert False, "FIXME: unhandled option"
+    if len(args) <1:
+        usage()
+        sys.exit(4)
     qert(args)
 
 def usage():
