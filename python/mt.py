@@ -35,7 +35,11 @@ def check_bank():
             print "Something wrong with this bank record: ", i
             sys.exit(1)
     del keys[keys.index("input")]
-    return keys
+    known = {}
+    for i in range(len(bank)):
+        for j in bank[i]["input"]:
+            known[j] = i
+    return (keys, known)
 
 def main():
     if len(sys.argv) <2:
@@ -50,7 +54,8 @@ def main():
         usage()
         sys.exit(3)
     global verbose, vertical, output
-    available_outputs = check_bank()
+    (available_outputs, known_inputs) = check_bank()
+    print known_inputs
     for o, a in opts:
         if o == "-v":
             verbose = True
