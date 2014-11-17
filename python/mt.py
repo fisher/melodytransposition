@@ -20,13 +20,31 @@ output = "letters"
 args = None
 
 # just a debug to show the variables
-def qert(args):
-    print "verbose: ", verbose
-    print "vertical:", vertical
-    print "bias   : ", bias
-    print "output : ", output
-    print "melody : ", args
-    print "bank   : ", bank
+def qert(args, known):
+    if verbose:
+        print "verbose: ", verbose
+        print "vertical:", vertical
+        print "bias   : ", bias
+        print "output : ", output
+        print "melody : ", args
+        print "bank   : ", bank
+    print " ".join(args)
+    #print "known:", known
+    melody = []
+    for l in args:
+        if l in known:
+            biased = known[l] +int(bias)
+            while biased > 11:
+                biased = biased -12
+            while biased <0:
+                biased = biased +12
+            melody.append(biased)
+        else:
+            print "Unknown note, ", l
+            usage()
+            sys.exit()
+    #print " ".join([str(n) for n in melody])
+    print " ".join([bank[n][output] for n in melody])
 
 def check_bank():
     keys = bank[0].keys()
@@ -55,9 +73,11 @@ def main():
         sys.exit(3)
     global verbose, vertical, output
     (available_outputs, known_inputs) = check_bank()
-    print known_inputs
+
     for o, a in opts:
         if o == "-v":
+            verbose = True
+        elif o == "--verbose":
             verbose = True
         elif o in ("-h", "--help"):
             usage()
@@ -78,11 +98,11 @@ def main():
             print sys.argv[0], "x, python2/getopt version (python)"
             sys.exit()
         else:
-            assert False, "FIXME: unhandled option"
+            assert False, "FIXME: unhandled option " + o
     if len(args) <1:
         usage()
         sys.exit(4)
-    qert(args)
+    qert(args, known_inputs)
 
 def usage():
     print "usage: ", sys.argv[0], " [options] <melody spec>"
