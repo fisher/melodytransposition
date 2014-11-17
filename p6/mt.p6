@@ -37,7 +37,7 @@ multi sub MAIN (
   if (@input.elems <1) { say "USAGE not implemented yet"; }
   say "bias is $bias, output format is $output, input is {@input}"
     if $verbose;
-f
+
   my $trans;
   my @tr;
 
