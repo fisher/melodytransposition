@@ -14,22 +14,20 @@ from notebank import bank
 
 # defaults
 verbose = False
-vertical = " "
+vertical = ' '
 bias = 0
 output = "letters"
 args = None
 
-# just a debug to show the variables
+
 def qert(args, known):
     if verbose:
-        print "verbose: ", verbose
-        print "vertical:", vertical
         print "bias   : ", bias
         print "output : ", output
         print "melody : ", args
         print "bank   : ", bank
     print " ".join(args)
-    #print "known:", known
+
     melody = []
     for l in args:
         if l in known:
@@ -43,7 +41,7 @@ def qert(args, known):
             print "Unknown note, ", l
             usage()
             sys.exit()
-    #print " ".join([str(n) for n in melody])
+
     print vertical.join([bank[n][output] for n in melody])
 
 def check_bank():
