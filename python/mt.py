@@ -14,7 +14,7 @@ from notebank import bank
 
 # defaults
 verbose = False
-vertical = False
+vertical = " "
 bias = 0
 output = "letters"
 args = None
@@ -44,7 +44,7 @@ def qert(args, known):
             usage()
             sys.exit()
     #print " ".join([str(n) for n in melody])
-    print " ".join([bank[n][output] for n in melody])
+    print vertical.join([bank[n][output] for n in melody])
 
 def check_bank():
     keys = bank[0].keys()
@@ -93,7 +93,7 @@ def main():
             global bias
             bias = a
         elif o in ("-V", "--vertical"):
-            vertical = True
+            vertical = "\n"
         elif o in ("--version"):
             print sys.argv[0], "x, python2/getopt version (python)"
             sys.exit()
