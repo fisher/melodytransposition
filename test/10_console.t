@@ -184,3 +184,14 @@ while (<PIPE>) {
 
 is ( $f, 1, "output=flute for G, --bias=10");
 close PIPE;
+
+# --- 15 -----------------------------------------
+open PIPE, "mt-console -b 5 --output=flute G |";
+
+$f = 0;
+while (<PIPE>) {
+  /\(X\) X X X  X X X X/ and $f++;
+}
+
+is ( $f, 1, "output=flute for G, -b 5");
+close PIPE;
