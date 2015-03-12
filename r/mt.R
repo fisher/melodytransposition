@@ -1,24 +1,12 @@
 #!/usr/bin/env Rscript
 #
 
-# spec contains at least 4 columns, as many as 5 columns.
-#
-# column 1: long name of flag
-# column 2: short name of flag
-# column 3: argument flag. 0=no argument, 1=required argument, 2=optional argument
-# column 4: mode of argument. one of "logical", "integer", "double", "complex", "character"
-# column 5 (optional): description of option.
-#
-# Examples:
-# $./example.R --array_id 42
-# $./example.R --array_id $SLURM_ARRAYID
-
-# can't use it:
-#6. No support for mixing in positional arguments or extra arguments
-# that don’t match any options.  For example, you can’t do
-# "my.R –arg1 1 foo bar baz" and recover "foo", "bar", "baz" as a list.
-# Likewise for "my.R foo –arg1 1 bar baz".
-library(getopt);
+## doc for this module:
+## http://cran.r-project.org/web/packages/argparser/argparser.pdf
+if(!require("argparser")) {
+    install.packages("argparser")
+    require("argparser")
+}
 
 spec = matrix(
     c(
