@@ -1,7 +1,8 @@
-#!/usr/bin/env perl6-m
+#!/usr/bin/env perl6
 #
 # tested against rakudo star 2013.10, 2013.11, 2013.12, 2014.01
 # on the Parrot vm
+# 2014.04 was found faster on moar vm (use !/usr/bin/env perl6-m)
 #
 
 use v6;
