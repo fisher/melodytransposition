@@ -38,8 +38,8 @@ Usage: mt.scm [options] [<input> ...]
 
 (define (main args)
   (let ((options (getopt-long (command-line) option-spec)))
-    (when (option-ref options 'help #f) (help))
-    (format #t "asdf: ~s\n" options)))
+    (if (option-ref options 'help #f) (help)
+    (format #t "asdf: ~s\n" options))))
 
 (define (mdain args)
   (let (;(options (getopt-long args option-spec #:stop-at-first-non-option #t))
