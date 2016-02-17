@@ -37,13 +37,13 @@ Usage: mt.scm [options] [<input> ...]
 
 
 (define (main args)
-  (let ((options (getopt-long (command-line) option-spec)))
+  (let ((options (getopt-long args option-spec)))
     (if (option-ref options 'help #f) (help)
     (format #t "asdf: ~s\n" options))))
 
 (define (mdain args)
   (let (;(options (getopt-long args option-spec #:stop-at-first-non-option #t))
-        (options (getopt-long (command-line) option-spec)))
+        (options (getopt-long args option-spec)))
          (bias (option-ref options 'bias 0))
          (output-format (option-ref options 'output 'letters))
          (help-wanted (option-ref options 'help #f))
@@ -63,6 +63,11 @@ Usage: mt.scm [options] [<input> ...]
           (newline)
           ) ))
 
-(if (eq? (length (command-line)) 1) (help) (main (command-line)))
+;;----------------------------------------------------------------------
+;; entry point
+
+(if (eq? (length (command-line)) 1)
+    (help)
+    (main (command-line)))
 
 ;;(main (command-line))
