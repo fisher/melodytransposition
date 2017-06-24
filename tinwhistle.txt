@@ -1,0 +1,18 @@
+Note  Force  Configuration
+-----+-----+---------------
+1C   |     |   -
+1C#  |     |   -
+1D   | --> | XXX XXX
+1E   | --> | XXX XXO
+1F#  | --> | XXX XOO
+1G   | --> | XXX OOO
+1A   | --> | XXO OOO
+1B   | --> | XOO OOO
+2C   | --> | OXO OOO
+2C#  | ==> | OOO OOO
+2D   | --> | OXX XXX
+2E   | ==> | XXX XXO
+2F#  | ==> | XXX XOO
+2G   | ==> | XXX OOO
+2A   | ==> | XXO OOO
+2B   | ==> | XOO OOO
